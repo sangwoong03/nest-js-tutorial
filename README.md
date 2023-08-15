@@ -36,7 +36,7 @@ This reopository is toturial for Nest.js framework.
 - Sub Modules for each services making up actual API.  
 You can customize your sub modules for your application.
     - *Module
-    - *Controller
-    - *Service
-    - Enitity
-    - Dto 
+    - *Controller :: You can handle input and output of data.
+    - *Service :: You can handle business logic or query to Database.
+    - Enitity ::
+    - Dto ::
