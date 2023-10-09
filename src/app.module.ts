@@ -1,14 +1,24 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { PingController } from './ping/ping.controller';
-import { PingService } from './ping/ping.service';
+import { PingModule } from './ping/ping.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env.DB_URL),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT),
+      database: process.env.DB_NAME,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      charset: 'utf8mb4'
+    }),
+    PingModule,
+    AuthModule,
   ],
-  controllers: [PingController],
-  providers: [PingService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

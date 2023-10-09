@@ -4,7 +4,7 @@ import Ping from './ping.entity';
 
 @Controller('ping')
 export class PingController {
-  constructor(private readonly pingService: PingService) { }
+  constructor( private readonly pingService: PingService ) { }
 
   @Get()
   getPing(): Ping {
