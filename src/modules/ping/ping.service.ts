@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import Ping from './ping.entity';
+import Ping from './entity/ping.entity';
 
 @Injectable()
 export class PingService {

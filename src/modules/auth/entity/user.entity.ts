@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
+  Timestamp,
   Unique
 } from 'typeorm';
 
@@ -24,7 +25,7 @@ export class User {
   password: string;
   
   @Column({ nullable: true, default: null })
-  phoneNumber: string;
+  phonenumber: string;
 
   @Column({ nullable: true, default: null })
   birthdate: string;
@@ -36,7 +37,7 @@ export class User {
     this.name = data.name,
     this.email = data.email,
     this.password = data.hashPassword
-    this.phoneNumber = data.phoneNumber || null;
+    this.phonenumber = data.phoneNumber || null;
     this.birthdate = data.birthdate || null;
     this.gender = data.gender || null;
   }

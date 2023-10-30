@@ -15,13 +15,13 @@ export class AuthService {
   ) { }
 
   async signup(body: SignUpInputDto): Promise<SignUpOutputDto> {
-    const { name, email, password, phoneNumber, birthdate, gender } = body;
-
+    
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
-
+    
     try{
+      const { name, email, password, phoneNumber, birthdate, gender } = body;
       const user = await this.userRepository.findOne({ where: { email: email } })
 
       if ( user ) throw new ConflictException();

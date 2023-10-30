@@ -1,6 +1,6 @@
 import { Controller, Get, Delete, Patch, Post } from '@nestjs/common';
 import { PingService } from './ping.service';
-import Ping from './ping.entity';
+import Ping from './entity/ping.entity';
 
 @Controller('ping')
 export class PingController {

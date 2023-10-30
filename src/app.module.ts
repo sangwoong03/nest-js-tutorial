@@ -1,22 +1,21 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { PingModule } from './ping/ping.module';
-import { AuthModule } from './auth/auth.module';
+import config, { DatabaseConfig } from './config/config';
+import { modules } from './modules';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT),
-      database: process.env.DB_NAME,
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      charset: 'utf8mb4'
+    ConfigModule.forRoot({
+      load: [config],
     }),
-    PingModule,
-    AuthModule,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => configService.get<DatabaseConfig>('app.database')
+    }),
+    ...modules
   ],
   controllers: [],
   providers: [],
