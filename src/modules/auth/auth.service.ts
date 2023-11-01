@@ -28,9 +28,7 @@ export class AuthService {
 
       const hashPassword = await bcrypt.hash(password, 10);
 
-      const newUser = new User({ name, email, hashPassword, phoneNumber, birthdate, gender })
-
-      await queryRunner.manager.save(User, newUser)
+      await this.userRepository.insert(body)
 
       const result = {
         account: {

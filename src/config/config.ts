@@ -1,16 +1,20 @@
 import { registerAs } from "@nestjs/config";
 
-// import { entities } from "src/modules";
+import { User } from "src/modules/auth/entity/user.entity";
+
+export const entities = [
+  User
+]
 
 export interface DatabaseConfig {
-  type: string,
+  type: 'mysql';
   host: string;
   port: number;
   username: string;
   password: string;
-  dbname: string;
-  synchronize: boolean;
-  charset: string,
+  database: string;
+  entities: [];
+  charset: string;
 }
 
 export default registerAs('app', () => ({
@@ -19,11 +23,10 @@ export default registerAs('app', () => ({
     type: 'mysql',
     host: process.env.DB_HOST || 'localhost',
     port: parseInt(process.env.DB_PORT, 10) || 3306,
-    name: process.env.DB_NAME,
+    database: process.env.DB_NAME,
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
-    synchronize: process.env.STAGE !== 'production',
-    // entities: entities,
+    entities: entities,
     charset: 'utf8mb4',
   },
 }));
