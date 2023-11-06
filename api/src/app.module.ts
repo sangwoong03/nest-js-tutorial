@@ -8,6 +8,7 @@ import { modules } from './modules';
 @Module({
   imports: [
     ConfigModule.forRoot({
+      isGlobal: true,
       load: [config],
     }),
     TypeOrmModule.forRootAsync({
