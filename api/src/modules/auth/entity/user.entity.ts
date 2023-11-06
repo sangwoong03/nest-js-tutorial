@@ -1,32 +1,24 @@
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-  Unique
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
 
 import { Gender } from '../enum/user.enum';
 
 @Entity('users')
-@Unique(["email"])
+@Unique(['email'])
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: true, default: null })
   name: string;
-  
+
   @Column()
   email: string;
-  
+
   @Column()
   password: string;
-  
-  @Column({ nullable: true, default: null })
-  phonenumber: string;
 
   @Column({ nullable: true, default: null })
-  birthdate: string;
+  phoneNumber: string;
   
   @Column({ type: 'enum', enum: Gender, nullable: true, default: null })
   gender: Gender;

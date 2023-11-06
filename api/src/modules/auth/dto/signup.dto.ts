@@ -11,7 +11,7 @@ import { Gender } from '../enum/user.enum';
 
 export class SignUpInputDto {
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   name: string;
 
   @IsEmail()
@@ -27,21 +27,16 @@ export class SignUpInputDto {
   @IsOptional()
   phoneNumber: string;
 
-  @IsString()
-  @IsOptional()
-  birthdate: string;
-
   @IsEnum(Gender)
   @IsOptional()
   gender: Gender;
 }
 
 export interface SignUpInputField {
-  name: string;
+  name?: string;
   email: string;
   hashPassword: string;
   phoneNumber?: string;
-  birthdate?: string;
   gender?: Gender;
 }
 

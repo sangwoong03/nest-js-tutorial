@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, UseInterceptors } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
@@ -7,6 +7,7 @@ import { SignUpInputDto, SignUpOutputDto } from './dto/signup.dto';
 import { User } from './entity/user.entity';
 
 @Injectable()
+@UseInterceptors()
 export class AuthService {
   constructor(
     @InjectRepository(User)
@@ -14,21 +15,22 @@ export class AuthService {
     private readonly dataSource: DataSource
   ) { }
 
-  async signup(body: SignUpInputDto): Promise<SignUpOutputDto> {
+  async signup(signUpInputData: SignUpInputDto): Promise<SignUpOutputDto> {
     
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
     
     try{
-      const { name, email, password, phoneNumber, birthdate, gender } = body;
+      const { name, email, password } = signUpInputData;
       const user = await this.userRepository.findOne({ where: { email: email } })
 
       if ( user ) throw new ConflictException();
 
       const hashPassword = await bcrypt.hash(password, 10);
 
-      await this.userRepository.insert(body)
+      signUpInputData.password = hashPassword
+      await this.userRepository.insert(signUpInputData)
 
       const result = {
         account: {
