@@ -32,14 +32,6 @@ export class SignUpInputDto {
   gender: Gender;
 }
 
-export interface SignUpInputField {
-  name?: string;
-  email: string;
-  hashPassword: string;
-  phoneNumber?: string;
-  gender?: Gender;
-}
-
 interface SignUpOutputField {
   name: string;
   email: string;

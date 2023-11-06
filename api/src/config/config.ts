@@ -13,7 +13,15 @@ export interface DatabaseConfig {
   username: string;
   password: string;
   database: string;
+  entities: [];
   charset: string;
+}
+
+export interface JwtConfig {
+  accessTokenSecret: string;
+  accessTokenExpiration: string;
+  refreshTokenSecret: string;
+  refreshTokenExpiration: string;
 }
 
 export default registerAs('app', () => ({
@@ -29,5 +37,11 @@ export default registerAs('app', () => ({
       namingStrategy: new SnakeNamingStrategy(),
       charset: 'utf8mb4',
     },
+    jwt: {
+      accessTokenSecret: process.env.ACCESS_TOKEN_SECRET_KEY,
+      accessTokenExpiration: process.env.ACCESS_TOKEN_EXPIRATION_TIME,
+      refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET_KEY,
+      refreshTokenExpiration: process.env.REFRESH_TOKEN_EXPIRATION_TIME,
+    }
   })
 );

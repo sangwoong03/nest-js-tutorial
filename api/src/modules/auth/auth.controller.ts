@@ -2,6 +2,7 @@ import { Body, Controller, Post, UseInterceptors } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
 import { SignUpInputDto, SignUpOutputDto } from './dto/signup.dto';
+import { SignInInputDto, SignInOutputDto } from './dto/signin.dto';
 import { ResonponseFormatInterceptor } from 'src/common/interceptor/response-format.interceptor';
 
 @Controller('auth')
@@ -11,7 +12,11 @@ export class AuthController {
 
   @Post('signup')
   async signup(@Body() body: SignUpInputDto): Promise<SignUpOutputDto> {
-    console.log(body)
     return this.authService.signup(body);
+  }
+
+  @Post('signin')
+  async signin(@Body() body: SignInInputDto): Promise<SignInOutputDto> {
+    return this.authService.signin(body);
   }
 }
