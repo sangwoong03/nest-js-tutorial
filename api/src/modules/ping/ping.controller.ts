@@ -1,8 +1,11 @@
-import { Controller, Get, Delete, Patch, Post, UseGuards } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
 import { PingService } from './ping.service';
 import Ping from './entity/ping.entity';
-import { AuthGuard } from 'src/common/guard/auth.guard';
+import { Swagger } from 'src/common/decorator/swagger.decorator';
 
+@ApiTags("PING API")
 @Controller('ping')
 export class PingController {
   constructor( private readonly pingService: PingService ) { }
@@ -10,6 +13,9 @@ export class PingController {
   @Get()
   // test guards
   // @UseGuards(AuthGuard)
+  
+  // test SwaggerUI
+  // @Swagger()
   getPing(): Ping {
     return this.pingService.pong()
   }
